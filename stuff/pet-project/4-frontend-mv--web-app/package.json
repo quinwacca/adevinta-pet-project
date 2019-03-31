@@ -9,7 +9,8 @@
     "ssr": "sui-bundler build -C && sui-ssr build -C && node server/index.js --inspect `pbpaste`",
     "start": "sui-bundler dev",
     "lint": "sui-lint js",
-    "analyze": "sui-bundler analyzer"
+    "analyze": "sui-bundler analyzer",
+    "build": "sui-bundler build"
   },
   "keywords": [],
   "author": "",
