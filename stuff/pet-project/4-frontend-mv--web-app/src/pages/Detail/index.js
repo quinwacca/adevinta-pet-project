@@ -12,16 +12,76 @@ const DetailPage = props => {
   const srcCoverGame = `${url}${props.boxartUrl}`
 
   return (
-    <div>
-      <h1>Detail Page</h1>
-      <Link to="/">Ir a la home</Link>
-      <h2>{props.game_title}</h2>
-      <AtomImage
-        src={srcCoverGame}
-        alt={props.game_title}
-        skeleton={urlImageSkeleton}
-      />
-      <p>{props.overview}</p>
+    <div className="gameDetail-page">
+      <h1 className="gameDetail-header">{props.game_title}</h1>
+      <h3>{props.platformName}</h3>
+      <Link to="/">Go home</Link>
+
+      <div className="gameDetail">
+        {props.boxartUrl ? (
+          <AtomImage
+            src={srcCoverGame}
+            alt={props.game_title}
+            skeleton={urlImageSkeleton}
+          />
+        ) : (
+          <AtomImage
+            src="https://www.unesale.com/ProductImages/Large/notfound.png"
+            alt={props.game_title}
+            skeleton={urlImageSkeleton}
+          />
+        )}
+        <div className="gameDetail-details">
+          {props.finalScore ? (
+            <h2 className="gameDetail-info-finalScore">
+              {Math.round(props.finalScore * 20)}
+            </h2>
+          ) : (
+            <h2 className="gameDetail-info-notRated">Not rated yet!</h2>
+          )}
+          <p>
+            Platform :{' '}
+            <span className="gameDetail-info--detail">
+              {props.platformName.join(', ')}
+            </span>
+          </p>
+          {props.genreNames[0] !== 'N/A' && (
+            <p>
+              Genres :{' '}
+              <span className="gameDetail-info--detail">
+                {props.genreNames.join(', ')}
+              </span>
+            </p>
+          )}
+          {props.developerNames[0] !== 'N/A' && (
+            <p>
+              Developers :{' '}
+              <span className="gameDetail-info--detail">
+                {props.developerNames.join(', ')}
+              </span>
+            </p>
+          )}
+          {props.publisherNames[0] !== 'N/A' && (
+            <p>
+              Publishers :{' '}
+              <span className="gameDetail-info--detail">
+                {props.publisherNames.join(', ')}
+              </span>
+            </p>
+          )}
+          {props.players !== null && (
+            <p>
+              Players :{' '}
+              <span className="gameDetail-info--detail">{props.players}</span>
+            </p>
+          )}
+          <p>
+            Coop : <span className="gameDetail-info--detail">{props.coop}</span>
+          </p>
+        </div>
+
+        <p className="gameDetail-overview">{props.overview}</p>
+      </div>
     </div>
   )
 }
@@ -29,7 +89,14 @@ const DetailPage = props => {
 DetailPage.propTypes = {
   game_title: PropTypes.string,
   overview: PropTypes.string,
-  boxartUrl: PropTypes.string
+  boxartUrl: PropTypes.string,
+  platformName: PropTypes.array,
+  finalScore: PropTypes.number,
+  genreNames: PropTypes.array,
+  developerNames: PropTypes.array,
+  publisherNames: PropTypes.array,
+  players: PropTypes.string,
+  coop: PropTypes.string
 }
 
 DetailPage.renderLoading = () => <AtomSpinner type={AtomSpinnerTypes.FULL} />
@@ -47,22 +114,3 @@ DetailPage.getInitialProps = ({routeInfo, context}) => {
 }
 
 export default DetailPage
-
-// DetailPage.getInitialProps = ({
-//   routeInfo: {
-//     params: {gameId}
-//   }
-// }) => {
-//   console.log(gameId)
-//   return fetch(`https://shielded-hamlet-42041.herokuapp.com/api/game/${gameId}`)
-//     .then(res => res.json())
-//     .then(result => {
-//       console.log(result)
-//       return result
-//     })
-//     .catch(error => {
-//       return {
-//         errorMessage: error
-//       }
-//     })
-// }

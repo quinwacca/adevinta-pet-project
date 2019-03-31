@@ -30,6 +30,13 @@ const HomePage = props => {
     props.router.push(`/?q=${query}`)
   }
 
+  const imgError = event => {
+    event.target.onerror = ''
+    event.target.src =
+      'https://www.unesale.com/ProductImages/Large/notfound.png'
+    return true
+  }
+
   console.log(props.results)
   return (
     <div className="header">
@@ -81,7 +88,17 @@ const HomePage = props => {
               <div key={game.id} className="gameCard">
                 <AtomCard
                   key={game.id}
-                  media={() => <img src={`${url}${game.boxartUrl}`} />}
+                  media={() => (
+                    <img
+                      onError={imgError}
+                      className="gameCard-image"
+                      src={
+                        game.boxartUrl
+                          ? `${url}${game.boxartUrl}`
+                          : `https://www.unesale.com/ProductImages/Large/notfound.png`
+                      }
+                    />
+                  )}
                   content={GameInfo}
                   href={urlTarget}
                   vertical

@@ -43,5 +43,36 @@ body {
     text-align: center;
     // background-color: rgba(200,200,200,0.4);
     margin: 1em;
+    &-image {
+        max-height: 19em;
+        object-fit: cover;
+    }
+}
 
+.gameDetail {
+    display: grid;
+    grid-template-columns: auto 40%;
+    // height: 100%;
+    margin-top: 2em;
+    &-page {
+        text-align: center;
+        padding: 1em;
+    }
+    &-image {
+        min-height: 300px;
+        object-fit: cover;
+    }
+    &-details {
+        text-align: left;
+        margin-left: 1em;
+    }
+    &-overview {
+        grid-column: 1 / span 2;
+        margin-top: 2em;
+    }
+    &-info {
+        &--detail {
+            font-weight: 600;
+        }
+    }
 }
