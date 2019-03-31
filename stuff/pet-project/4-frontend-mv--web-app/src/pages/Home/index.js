@@ -37,7 +37,6 @@ const HomePage = props => {
     return true
   }
 
-  console.log(props.results)
   return (
     <div className="header">
       <h1>HomePage</h1>
